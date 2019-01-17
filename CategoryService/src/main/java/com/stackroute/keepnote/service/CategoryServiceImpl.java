@@ -1,11 +1,16 @@
 package com.stackroute.keepnote.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.stackroute.keepnote.exception.CategoryDoesNoteExistsException;
 import com.stackroute.keepnote.exception.CategoryNotCreatedException;
 import com.stackroute.keepnote.exception.CategoryNotFoundException;
 import com.stackroute.keepnote.model.Category;
+import com.stackroute.keepnote.repository.CategoryRepository;
 
 /*
 * Service classes are used here to implement additional business logic/validation 
@@ -17,6 +22,7 @@ import com.stackroute.keepnote.model.Category;
 * future.
 * */
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	/*
@@ -24,14 +30,20 @@ public class CategoryServiceImpl implements CategoryService {
 	 * Constructor-based autowiring) Please note that we should not create any
 	 * object using the new keyword.
 	 */
-
+	@Autowired
+	private CategoryRepository categoryRepository;
 	/*
 	 * This method should be used to save a new category.Call the corresponding
 	 * method of Respository interface.
 	 */
 	public Category createCategory(Category category) throws CategoryNotCreatedException {
 
-		return null;
+		Category currentcategory = this.categoryRepository.save(category);
+		if (currentcategory != null) {
+			return currentcategory;
+		} else {
+			throw new CategoryNotCreatedException("category was not created");
+		}
 	}
 
 	/*
@@ -39,8 +51,18 @@ public class CategoryServiceImpl implements CategoryService {
 	 * corresponding method of Respository interface.
 	 */
 	public boolean deleteCategory(String categoryId) throws CategoryDoesNoteExistsException {
-
-		return false;
+		 Category currentCategory = categoryRepository.findById(categoryId).get();
+		
+		if (currentCategory != null) {
+			try{
+			this.categoryRepository.delete(currentCategory);
+			return true;
+			}catch(Exception e){
+				throw e;
+			}
+		} else {
+		throw new CategoryDoesNoteExistsException("User was not found");
+	}
 	}
 
 	/*
@@ -48,8 +70,18 @@ public class CategoryServiceImpl implements CategoryService {
 	 * corresponding method of Respository interface.
 	 */
 	public Category updateCategory(Category category, String categoryId) {
-
-		return null;
+		try{
+		Category currentCategory = categoryRepository.findById(categoryId).get();
+		if (currentCategory != null) {
+			return this.categoryRepository.save(category);
+		}else{
+			return null;
+		}
+		//return currentUser;
+		}catch(Exception e){
+			throw e;
+		}
+			
 	}
 
 	/*
@@ -58,7 +90,8 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public Category getCategoryById(String categoryId) throws CategoryNotFoundException {
 
-		return null;
+		Optional<Category> result = this.categoryRepository.findById(categoryId);
+		 return result.orElseThrow(() -> new CategoryNotFoundException(categoryId));
 	}
 
 	/*
@@ -67,7 +100,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public List<Category> getAllCategoryByUserId(String userId) {
 
-		return null;
+		return this.categoryRepository.findAllCategoryByCategoryCreatedBy(userId);
 	}
 
 }

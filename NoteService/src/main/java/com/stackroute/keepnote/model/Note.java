@@ -14,72 +14,84 @@ public class Note {
 	 * accepted from the user but should be always initialized with the system date.
 	 * 
 	 */
+	private int noteId;
+	private String noteTitle;
+	private String noteContent;
+	private String noteStatus;
+	private Date noteCreationDate;
+	private Category category;
+	private List<Reminder> reminders;
+	private String noteCreatedBy;
 
 
 	    // getters & setters
 
 	    public int getNoteId() {
-	        return 0;
+	        return this.noteId;
 	    }
 
 	    public void setNoteId(int noteId) {
+	    	this.noteId=noteId;
 	     
 	    }
 
 	    public String getNoteTitle() {
-	        return null;
+	        return this.noteTitle;
 	    }
 
 	    public void setNoteTitle(String noteTitle) {
+	    	this.noteTitle=noteTitle;
 	       
 	    }
 
 	    public String getNoteContent() {
-	        return null;
+	        return this.noteContent;
 	    }
 
 	    public void setNoteContent(String noteContent) {
+	    	this.noteContent=noteContent;
 	       
 	    }
 
 	    public String getNoteStatus() {
-	        return null;
+	        return this.noteStatus;
 	    }
 
 	    public void setNoteStatus(String noteStatus) {
-	       
+	       this.noteStatus=noteStatus;
 	    }
 
 	    public Date getNoteCreationDate() {
-	        return null;
+	        return this.noteCreationDate;
 	    }
 
 	    public void setNoteCreationDate(Date noteCreationDate) {
+	    	this.noteCreationDate=noteCreationDate;
 	        
 	    }
 
 	    public String getNoteCreatedBy() {
-	        return null;
+	        return this.noteCreatedBy;
 	    }
 
 	    public void setNoteCreatedBy(String noteCreatedBy) {
-	        
+	        this.noteCreatedBy=noteCreatedBy;
 	    }
 
 	    public Category getCategory() {
-	        return null;
+	        return category;
 	    }
 
 	    public void setCategory(Category category) {
-	       
+	       this.category=category;
 	    }
 
 	    public List<Reminder> getReminders() {
-	        return null;
+	        return this.reminders;
 	    }
 
 	    public void setReminders(List<Reminder> reminders) {
+	    	this.reminders=reminders;
 	    
 	    }
-	
-}
+	}

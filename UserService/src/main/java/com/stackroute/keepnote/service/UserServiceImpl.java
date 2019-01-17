@@ -1,8 +1,15 @@
 package com.stackroute.keepnote.service;
 
+import java.util.Date;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.stackroute.keepnote.exceptions.UserAlreadyExistsException;
 import com.stackroute.keepnote.exceptions.UserNotFoundException;
 import com.stackroute.keepnote.model.User;
+import com.stackroute.keepnote.repository.UserRepository;
 
 /*
 * Service classes are used here to implement additional business logic/validation 
@@ -13,7 +20,7 @@ import com.stackroute.keepnote.model.User;
 * better. Additionally, tool support and additional behavior might rely on it in the 
 * future.
 * */
-
+@Service
 public class UserServiceImpl implements UserService {
 
 	/*
@@ -21,35 +28,65 @@ public class UserServiceImpl implements UserService {
 	 * Constructor-based autowiring) Please note that we should not create any
 	 * object using the new keyword.
 	 */
-
+	@Autowired
+	private UserRepository userRepository;
 	/*
-	 * This method should be used to save a new user.Call the corresponding method
-	 * of Respository interface.
+	 * This method should be used to save a new user.Call the corresponding
+	 * method of Respository interface.
 	 */
 
 	public User registerUser(User user) throws UserAlreadyExistsException {
-
-		return null;
+		User currentUser = this.userRepository.save(user);
+		if (currentUser != null) {
+			return currentUser;
+		} else {
+			throw new UserAlreadyExistsException("User was already found");
+		}
 	}
 
 	/*
-	 * This method should be used to update a existing user.Call the corresponding
-	 * method of Respository interface.
+	 * This method should be used to update a existing user.Call the
+	 * corresponding method of Respository interface.
 	 */
 
 	public User updateUser(String userId,User user) throws UserNotFoundException {
 
-		return null;
+		User currentUser = this.getUserById(userId);
+		if (currentUser != null) {
+			try{
+				currentUser.setUserName(user.getUserName());
+				currentUser.setUserPassword(user.getUserPassword());
+				currentUser.setUserMobile(user.getUserMobile());
+				currentUser.setUserAddedDate(new Date());
+				currentUser=this.userRepository.save(currentUser);
+			return currentUser;
+			}catch(Exception e){
+				throw e;
+			}
+		} else {
+			throw new UserNotFoundException("User was not found");
+		}
 	}
 
 	/*
-	 * This method should be used to delete an existing user. Call the corresponding
-	 * method of Respository interface.
+	 * This method should be used to delete an existing user. Call the
+	 * corresponding method of Respository interface.
 	 */
 
 	public boolean deleteUser(String userId) throws UserNotFoundException {
 
-		return false;
+		User currentUser = this.getUserById(userId);
+		if (currentUser != null) {
+			try{
+			this.userRepository.delete(currentUser);
+			return true;
+			}catch(Exception e){
+				throw e;
+			}
+		} else {
+			throw new UserNotFoundException("User was not found");
+		}
+		//return currentUser.orElseThrow()->new UserNotFoundException("User was not found");
 	}
 
 	/*
@@ -59,7 +96,8 @@ public class UserServiceImpl implements UserService {
 
 	public User getUserById(String userId) throws UserNotFoundException {
 
-		return null;
+		Optional<User> result = this.userRepository.findById(userId);
+		 return result.orElseThrow(() -> new UserNotFoundException(userId));
 	}
 
 }

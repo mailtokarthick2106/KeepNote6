@@ -13,55 +13,64 @@ public class Reminder {
 	 * be accepted from the user but should be always initialized with the system
 	 * date.
 	 */
-	
-	
+	private String reminderId;
+	private String reminderName;
+	private String reminderDescription;
+	private String reminderType;
+	private String reminderCreatedBy;
+	private Date reminderCreationDate;
 	  public String getReminderId() {
-	        return null;
+	        return this.reminderId;
 	    }
 
 	    public void setReminderId(String reminderId) {
+	    	this.reminderId=reminderId;
 	       
 	    }
 
 	    public String getReminderName() {
-	        return null;
+	        return this.reminderName;
 	    }
 
 	    public void setReminderName(String reminderName) {
+	    	this.reminderName=reminderName;
 	       
 	    }
 
 	    public String getReminderDescription() {
-	        return null;
+	        return this.reminderDescription;
 	    }
 
 	    public void setReminderDescription(String reminderDescription) {
+	    	this.reminderDescription=reminderDescription;
 	        
 	    }
 
 	    public String getReminderType() {
-	        return null;
+	        return this.reminderType;
 	    }
 
 	    public void setReminderType(String reminderType) {
+	    	this.reminderType=reminderType;
 	       
 	    }
 
 	    public String getReminderCreatedBy() {
-	        return null;
+	        return this.reminderCreatedBy;
 	    }
 
 	    public void setReminderCreatedBy(String reminderCreatedBy) {
+	    	this.reminderCreatedBy=reminderCreatedBy;
 	        
 	    }
 
 	    public Date getReminderCreationDate() {
-	        return null;
+	        return this.reminderCreationDate;
 	    }
 
 	    public void setReminderCreationDate(Date reminderCreationDate) {
+	    	this.reminderCreationDate=reminderCreationDate;
 	        
 	    }
-
 
 }

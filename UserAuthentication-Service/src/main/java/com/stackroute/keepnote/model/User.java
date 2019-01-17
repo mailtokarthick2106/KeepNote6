@@ -2,6 +2,11 @@ package com.stackroute.keepnote.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /*
  * The class "User" will be acting as the data model for the User Table in the database. 
  * Please note that this class is annotated with @Entity annotation. 
@@ -9,7 +14,8 @@ import java.util.Date;
  * If it finds any, then it will begin the process of looking through that particular 
  * Java object to recreate it as a table in your database.
  */
-
+@Entity
+@Table(name = "User")
 public class User {
 
     /*
@@ -20,59 +26,73 @@ public class User {
 	 * and toString method.The value of userAddedDate should not be accepted from
 	 * the user but should be always initialized with the system date
 	 */
-	
-
-    
-    private String userId;
-    private String userPassword;
-   
+    @Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "userId")
+	private String userId;
+	@Column(name = "firstName")
+	private String firstName;
+	@Column(name = "lastName")
+	private String lastName;
+	@Column(name = "userPassword")
+	private String userPassword;
+	@Column(name = "userRole")
+	private String userRole;
+	@Column(name = "userAddedDate")
+	private Date userAddedDate;
 	
     public String getUserId() {
-    	return null;
+    	return this.userId;
     }
 
-    public void setUserId(String  string) {
+    public void setUserId(String  userId) {
+    	this.userId=userId;
        
     }
 
     public String getFirstName() {
-    	return null;
+    	return this.firstName;
     }
 
-    public void setFirstName(String  string) {
+    public void setFirstName(String  firstName) {
+    	this.firstName=firstName;
         
     }
 
     public String getLastName() {
-    	return null;
+    	return this.lastName;
     }
 
-    public void setLastName(String  string) {
+    public void setLastName(String  lastName) {
+    	this.lastName=lastName;
        
     }
 
     public String getUserPassword() {
-    	return null;
+    	return this.userPassword;
     }
 
-    public void setUserPassword(String  string) {
+    public void setUserPassword(String  userPassword) {
+    	this.userPassword=userPassword;
        
     }
 
     public String getUserRole() {
-    	return null;
+    	return this.userRole;
     }
 
-    public void setUserRole(String  string) {
+    public void setUserRole(String  userRole) {
+    	this.userRole=userRole;
       
     }
 
 
     public Date getUserAddedDate() {
-        return null;
+        return this.userAddedDate;
     }
 
-    public void setUserAddedDate(Date date) {
+    public void setUserAddedDate(Date userAddedDate) {
+    	this.userAddedDate=userAddedDate;
         
     }
 
