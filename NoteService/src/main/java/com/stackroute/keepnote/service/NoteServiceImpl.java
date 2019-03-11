@@ -41,6 +41,7 @@ public class NoteServiceImpl implements NoteService {
 				NoteUser noteUser = new NoteUser();
 				noteUser.setUserId(note.getNoteCreatedBy());
 				noteUser.setNotes(noteList);
+				noteList.add(note);
 				NoteUser currentNote = this.noteRepository.save(noteUser);
 				if (currentNote != null) {
 					return true;

@@ -1,9 +1,13 @@
 package com.stackroute.keepnote;
 
+import javax.servlet.Filter;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+
+import com.stackroute.keepnote.jwtfilter.JwtFilter;
 
 /*
  * The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration 
@@ -20,12 +24,13 @@ public class NoteServiceApplication {
 	 * object and use setFilter() method to set new instance of JwtFilter object.
 	 * Also specifies the Url patterns for registration bean.
 	 */
-	  @Bean
-	    public FilterRegistrationBean jwtFilter() {
-	       
-	        return null;
-	    }
-	
+	/*@Bean
+	public FilterRegistrationBean jwtFilter() {
+		FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<Filter>();
+		bean.setFilter(new JwtFilter("SecretKeyToGenJWTs"));
+		return bean;
+	}
+*/
 	
 	
 	/*

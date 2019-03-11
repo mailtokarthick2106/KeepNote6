@@ -1,11 +1,16 @@
 package com.stackroute.keepnote.test.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stackroute.keepnote.controller.UserController;
-import com.stackroute.keepnote.exceptions.UserAlreadyExistsException;
-import com.stackroute.keepnote.exceptions.UserNotFoundException;
-import com.stackroute.keepnote.model.User;
-import com.stackroute.keepnote.service.UserService;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,19 +22,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.any;
-import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Date;
-
-import static org.mockito.Mockito.when;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stackroute.keepnote.controller.UserController;
+import com.stackroute.keepnote.exceptions.UserAlreadyExistsException;
+import com.stackroute.keepnote.exceptions.UserNotFoundException;
+import com.stackroute.keepnote.model.User;
+import com.stackroute.keepnote.service.UserService;
+import com.stackroute.keepnote.service.UserServiceImpl;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -41,9 +43,11 @@ public class UserControllerTest {
     @MockBean
     private User user;
     @MockBean
-    UserService userService;
+    UserService userService1;
     @InjectMocks
     UserController userController;
+    @InjectMocks
+    UserServiceImpl userService;
 
     @Before
     public void setUp() {
